@@ -23,7 +23,7 @@ export default function Services() {
       title: "Postnatal Care (Mother & Baby)",
       desc: "Care for new mothers and newborns including recovery monitoring, breastfeeding support, and baby care.",
       icon: <FaBaby className="text-pink-600 text-2xl mb-3" />,
-      image: "/images/postnatal-care.jpg",
+      image: "/images/Postnatal-Care.jpg",
     },
     {
       title: "Home Nursing / Travel Nurse",
@@ -35,19 +35,19 @@ export default function Services() {
       title: "Disability Support",
       desc: "Assistance for individuals with disabilities including mobility support, hygiene care, and daily living help.",
       icon: <FaWheelchair className="text-purple-600 text-2xl mb-3" />,
-      image: "/images/disability-support.jpg",
+      image: "/images/Disability-Support.jpg",
     },
     {
       title: "Post-Surgery Recovery Care",
       desc: "Wound care, medication reminders, and recovery monitoring after surgery.",
       icon: <FaProcedures className="text-red-600 text-2xl mb-3" />,
-      image: "/images/post-surgery.jpg",
+      image: "/images/Post-Surgery.jpg",
     },
     {
       title: "Chronic Illness Care",
       desc: "Support for patients with diabetes, hypertension, stroke recovery, and other long-term conditions.",
       icon: <FaNotesMedical className="text-yellow-600 text-2xl mb-3" />,
-      image: "/images/chronic-illness.jpg",
+      image: "/images/Chronic-Illness.jpg",
     },
   ];
 
