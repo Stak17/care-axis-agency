@@ -5,7 +5,7 @@ import { FaWhatsapp, FaEnvelope } from "react-icons/fa";
 
 export default function Booking() {
   const [formData, setFormData] = useState({
-    fullName: "",
+    full_name: "",
     phone: "",
     email: "",
     service: "",
@@ -13,15 +13,19 @@ export default function Booking() {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
+    // WhatsApp message template
     const waMessage = `Hello Blessed Hands Home Care, I would like to book a service:
-Name: ${formData.fullName}
+Name: ${formData.full_name}
 Phone: ${formData.phone}
 Email: ${formData.email}
 Service: ${formData.service}
@@ -33,18 +37,19 @@ Message: ${formData.message}`;
     )}`;
 
     try {
-      const response = await fetch("/api/bookings", {
+      // Send booking to Supabase API
+      const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
+      const data = await res.json();
 
-      if (result.success) {
-        alert("Booking submitted! You can also confirm via WhatsApp.");
+      if (res.ok) {
+        alert("Booking successful! You can also confirm via WhatsApp.");
         setFormData({
-          fullName: "",
+          full_name: "",
           phone: "",
           email: "",
           service: "",
@@ -53,11 +58,13 @@ Message: ${formData.message}`;
         });
         window.open(waLink, "_blank");
       } else {
-        alert("Error submitting booking. Please try again.");
+        alert(data.error || "Error submitting booking.");
       }
     } catch (err) {
-      console.error(err);
-      alert("Error connecting to server. Try again later.");
+      console.error("Fetch error:", err);
+      alert("Something went wrong. Try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,13 +93,11 @@ Message: ${formData.message}`;
 
               {/* Full Name */}
               <div>
-                <label className="block text-gray-700 font-medium mb-1">
-                  Full Name
-                </label>
+                <label className="block text-gray-700 font-medium mb-1">Full Name</label>
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
+                  name="full_name"
+                  value={formData.full_name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
                   required
@@ -102,9 +107,7 @@ Message: ${formData.message}`;
 
               {/* Phone */}
               <div>
-                <label className="block text-gray-700 font-medium mb-1">
-                  Phone Number
-                </label>
+                <label className="block text-gray-700 font-medium mb-1">Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
@@ -118,9 +121,7 @@ Message: ${formData.message}`;
 
               {/* Email */}
               <div>
-                <label className="block text-gray-700 font-medium mb-1">
-                  Email Address
-                </label>
+                <label className="block text-gray-700 font-medium mb-1">Email Address</label>
                 <input
                   type="email"
                   name="email"
@@ -134,9 +135,7 @@ Message: ${formData.message}`;
 
               {/* Service */}
               <div>
-                <label className="block text-gray-700 font-medium mb-1">
-                  Select Service
-                </label>
+                <label className="block text-gray-700 font-medium mb-1">Select Service</label>
                 <select
                   name="service"
                   value={formData.service}
@@ -156,9 +155,7 @@ Message: ${formData.message}`;
 
               {/* Date */}
               <div>
-                <label className="block text-gray-700 font-medium mb-1">
-                  Preferred Date
-                </label>
+                <label className="block text-gray-700 font-medium mb-1">Preferred Date</label>
                 <input
                   type="date"
                   name="date"
@@ -171,9 +168,7 @@ Message: ${formData.message}`;
 
               {/* Message */}
               <div>
-                <label className="block text-gray-700 font-medium mb-1">
-                  Message
-                </label>
+                <label className="block text-gray-700 font-medium mb-1">Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -186,9 +181,10 @@ Message: ${formData.message}`;
               {/* Submit */}
               <button
                 type="submit"
-                className="bg-blue-600 text-white py-3 rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition"
+                disabled={loading}
+                className={`bg-blue-600 text-white py-3 rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
               >
-                Submit Booking
+                {loading ? "Submitting..." : "Submit Booking"}
               </button>
 
             </form>
