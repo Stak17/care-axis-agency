@@ -1,59 +1,70 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
+
+import Image from "next/image";
 
 export default function Team() {
   const teamMembers = [
     {
-      name: "Nurse Grace Akello",
+      name: "Nurse Anita Nabirye",
       role: "Registered Nurse",
-      experience: "5 years",
-      image: "/images/nurse1.jpg",
-    },
-    {
-      name: "Nurse John Kato",
-      role: "Enrolled Nurse",
-      experience: "3 years",
-      image: "/images/nurse2.jpg",
-    },
-    {
-      name: "Caregiver Susan Achieng",
-      role: "Home Care Assistant",
       experience: "4 years",
-      image: "/images/nurse3.jpg",
+      image: "/images/Anita.jpg",
+    },
+    {
+      name: "Nurse Racheal Nakanwagi",
+      role: "Enrolled Nurse",
+      experience: "3 months",
+      image: "/images/Racheal.jpg",
+    },
+    {
+      name: "Nurse Amos Samuel Kiryowa",
+      role: "Male nurse ",
+      experience: "2 years",
+      image: "/images/Amos.jpg",
     },
   ];
 
   return (
-    <section className="bg-gray-50 py-16">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="py-16 px-6 bg-gradient-to-br from-blue-50 via-white to-green-50">
+      <div className="max-w-6xl mx-auto">
+        
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-12">
-          Meet Our Team
+          Meet Our Care Team
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition transform hover:-translate-y-2"
+              className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 text-center p-6"
             >
-              <div className="overflow-hidden h-64">
-                <img
+              
+              {/* Square Centered Image */}
+              <div className="w-40 h-40 mx-auto mb-4 flex items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
+                <Image
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover transform hover:scale-105 transition duration-300"
+                  width={160}
+                  height={160}
+                  className="object-contain"
                 />
               </div>
 
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  {member.name}
-                </h3>
-                <p className="text-gray-700 mb-1">{member.role}</p>
-                <p className="text-gray-500 text-sm">{member.experience} experience</p>
-              </div>
+              {/* Info */}
+              <h3 className="text-lg font-semibold text-blue-700">
+                {member.name}
+              </h3>
+
+              <p className="text-gray-600">{member.role}</p>
+
+              <p className="text-gray-500 text-sm mt-1">
+                {member.experience} experience
+              </p>
+
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
