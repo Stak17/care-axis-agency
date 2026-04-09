@@ -63,7 +63,8 @@ Message: ${formData.message}`;
 
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-6 md:px-20">
-      {/* HERO SECTION */}
+
+      {/* HERO */}
       <section className="py-24 text-center bg-gradient-to-r from-blue-100 via-white to-green-100">
         <h1 className="text-4xl md:text-5xl font-extrabold text-blue-800">
           Book a Service
@@ -73,89 +74,127 @@ Message: ${formData.message}`;
         </p>
       </section>
 
-      {/* FORM & CONTACT GRID */}
+      {/* FORM & CONTACT */}
       <section className="py-20">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
 
-          {/* BOOKING FORM */}
-          <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-lg">
+          {/* FORM */}
+          <div className="bg-white/90 backdrop-blur-md p-8 rounded-xl shadow-xl border border-gray-200">
             <h2 className="text-2xl font-bold text-blue-800 mb-6">Booking Form</h2>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Full Name"
-                required
-                className="border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
+              {/* Full Name */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                  required
+                  className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="Phone Number"
-                required
-                className="border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
+              {/* Phone */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Enter phone number"
+                  required
+                  className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email Address"
-                required
-                className="border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
+              {/* Email */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter email address"
+                  required
+                  className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-              <select
-                name="service"
-                value={formData.service}
-                onChange={handleChange}
-                required
-                className="border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-              >
-                <option value="">Select Service</option>
-                <option value="Elderly Care">Elderly Care</option>
-                <option value="Postnatal Care (Mother & Baby)">Postnatal Care (Mother & Baby)</option>
-                <option value="Home Nursing / Travel Nurse">Home Nursing / Travel Nurse</option>
-                <option value="Disability Support">Disability Support</option>
-                <option value="Post-Surgery Recovery Care">Post-Surgery Recovery Care</option>
-                <option value="Chronic Illness Care">Chronic Illness Care</option>
-              </select>
+              {/* Service */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  Select Service
+                </label>
+                <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Choose a service</option>
+                  <option value="Elderly Care">Elderly Care</option>
+                  <option value="Postnatal Care (Mother & Baby)">Postnatal Care</option>
+                  <option value="Home Nursing / Travel Nurse">Home Nursing</option>
+                  <option value="Disability Support">Disability Support</option>
+                  <option value="Post-Surgery Recovery Care">Post-Surgery Care</option>
+                  <option value="Chronic Illness Care">Chronic Illness Care</option>
+                </select>
+              </div>
 
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-                className="border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
+              {/* Date */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  Preferred Date
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Additional Message (Optional)"
-                className="border p-3 rounded-lg h-32 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
+              {/* Message */}
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Enter your message"
+                  className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+                />
+              </div>
 
+              {/* Submit */}
               <button
                 type="submit"
                 className="bg-blue-600 text-white py-3 rounded-full shadow-md hover:bg-blue-700 hover:scale-105 transition"
               >
                 Submit Booking
               </button>
+
             </form>
           </div>
 
-          {/* CONTACT OPTIONS */}
+          {/* CONTACT */}
           <div className="flex flex-col gap-6">
             <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg flex items-center gap-4">
               <FaWhatsapp className="text-green-500 text-3xl" />
