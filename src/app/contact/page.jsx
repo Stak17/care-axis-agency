@@ -123,8 +123,15 @@ export default function Contact() {
             {/* Map Section */}
             <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-xl hover:shadow-2xl transition">
               <h2 className="text-2xl font-semibold text-blue-700 mb-4">Our Service Area</h2>
-              <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
-                Google Map Placeholder
+              <div className="mt-4">
+                <iframe
+                  src="https://www.google.com/maps?q=Kireka,Uganda&output=embed"
+                  width="100%"
+                  height="300"
+                  className="rounded-lg border"
+                  loading="lazy"
+                  title="Care Axis Agency Location"
+                ></iframe>
               </div>
               <p className="mt-4 text-gray-600 text-sm">
                 Care Axis Agency provides services across Uganda.
