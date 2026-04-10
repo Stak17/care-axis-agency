@@ -1,57 +1,73 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function AdminPage() {
   const [bookings, setBookings] = useState([]);
-  const [authorized, setAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const router = useRouter();
 
-  // ✅ AUTH CHECK
+  // =========================
+  // AUTH CHECK
+  // =========================
   useEffect(() => {
-    const isAuth = localStorage.getItem("adminAuth");
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getUser();
 
-    if (!isAuth) {
-      router.push("/admin/login");
-    } else {
-      setAuthorized(true);
-    }
+      if (!data.user) {
+        router.replace("/admin/login");
+      } else {
+        setIsAuthorized(true);
+      }
+    };
+
+    checkUser();
   }, [router]);
 
-  // ✅ FETCH BOOKINGS ONLY IF AUTHORIZED
+  // =========================
+  // FETCH BOOKINGS
+  // =========================
   useEffect(() => {
-    if (!authorized) return;
+    if (!isAuthorized) return;
 
     fetch("/api/getBookings")
       .then((res) => res.json())
       .then((data) => setBookings(data))
       .catch((err) => console.error("Fetch error:", err));
-  }, [authorized]);
+  }, [isAuthorized]);
 
-  if (!authorized) return null;
+  // 🔴 BLOCK UI UNTIL AUTH IS READY
+  if (!isAuthorized) return null;
+
+  // =========================
+  // LOGOUT FUNCTION (COMBINED)
+  // =========================
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.replace("/admin/login");
+  };
 
   return (
     <main className="p-10 bg-gradient-to-br from-blue-50 via-white to-green-50 min-h-screen">
-      
+
       {/* Top Bar */}
       <div className="flex justify-between items-center mb-6 max-w-4xl mx-auto">
         <h1 className="text-3xl font-extrabold text-blue-800 tracking-wide">
           Admin Dashboard – Bookings
         </h1>
 
-        {/* ✅ LOGOUT BUTTON */}
+        {/* ✅ COMBINED LOGOUT BUTTON */}
         <button
-          onClick={() => {
-            localStorage.removeItem("adminAuth");
-            window.location.href = "/admin/login";
-          }}
+          onClick={handleLogout}
           className="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition"
         >
           Logout
         </button>
       </div>
 
+      {/* BOOKINGS */}
       <div className="grid gap-6 max-w-4xl mx-auto">
         {bookings.length === 0 ? (
           <p className="text-center text-gray-600 text-lg font-medium">
